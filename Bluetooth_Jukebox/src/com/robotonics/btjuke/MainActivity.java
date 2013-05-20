@@ -1,7 +1,7 @@
 /**
- *  @version 1.1 (28.01.2013)
- *  http://english.cxem.net/arduino/arduino5.php
- *  @author Koltykov A.V. (�������� �.�.)
+ *  @version 1.0 (20.05.2013)
+ *  
+ *  @author Robotonics
  * 
  */
 
