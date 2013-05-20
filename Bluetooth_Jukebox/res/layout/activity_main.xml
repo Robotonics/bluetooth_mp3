@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/Pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+		android:layout_marginTop="100dp"
+		android:background="@drawable/menu_selector"
+        android:text="@string/Pause"/>
+
+    <Button
+        android:id="@+id/Play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+		android:layout_marginTop="100dp"
+		android:layout_marginLeft="30dp"
+		android:padding="10dp"
+		android:background="@drawable/menu_selector"
+        android:text="@string/Play" />
+	
+	<Button
+        android:id="@+id/Mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+		android:layout_marginTop="100dp"
+		android:layout_marginRight="30dp"
+        android:background="@drawable/menu_selector"
+        android:text="@string/Mute" />
+
+    <TextView
+        android:id="@+id/txtArduino"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="" />
+    
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:alpha="0.5"
+        android:src="@drawable/cxemnet_logo" />
+	
+	<EditText
+        android:id="@+id/trackNumber"
+        android:hint="@string/trackNumber"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal">
+		<requestFocus/>
+	
+	</EditText>
+
+</RelativeLayout>
+

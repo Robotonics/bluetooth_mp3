@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">Bluetooth_Jukebox</string>
-
+    <string name="app_name">RoboTonics</string>
+    <string name="title_activity_main">RoboTonics</string>
+    <string name="Play">Play</string>
+    <string name="Pause">Pause</string>
+	<string name="Mute">Mute</string>
+	<string name="trackNumber">Enter Track Number</string>
 </resources>
