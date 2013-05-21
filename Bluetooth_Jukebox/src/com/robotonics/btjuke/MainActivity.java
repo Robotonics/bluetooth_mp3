@@ -32,7 +32,6 @@ import android.widget.Toast;
 import android.widget.*;
  
 public class MainActivity extends Activity {
-  private static final String TAG = "Alison's MP3 Player";
    
   Button Play, Pause, Mute;
   TextView txtArduino;
@@ -60,8 +59,8 @@ public class MainActivity extends Activity {
     setContentView(R.layout.activity_main);
     track= (EditText) findViewById(R.id.trackNumber);
     Mute= (Button) findViewById(R.id.Mute);
-    Play= (Button) findViewById(R.id.Play);					// button LED ON
-    Pause = (Button) findViewById(R.id.Pause);				// button LED OFF
+    Play= (Button) findViewById(R.id.Play);					
+    Pause = (Button) findViewById(R.id.Pause);				
     txtArduino = (TextView) findViewById(R.id.txtArduino);		// for display the received data from the Arduino
     
     h = new Handler() {
@@ -79,7 +78,7 @@ public class MainActivity extends Activity {
                 	Pause.setEnabled(true);
                 	Play.setEnabled(true); 
                 }
-            	//Log.d(TAG, "...String:"+ sb.toString() +  "Byte:" + msg.arg1 + "...");
+            
             	break;
     		}
         };
@@ -120,7 +119,7 @@ public class MainActivity extends Activity {
               final Method  m = device.getClass().getMethod("createInsecureRfcommSocketToServiceRecord", new Class[] { UUID.class });
               return (BluetoothSocket) m.invoke(device, MY_UUID);
           } catch (Exception e) {
-              Log.e(TAG, "Could not create Insecure RFComm Connection",e);
+              // do something here?
           }
       }
       return  device.createRfcommSocketToServiceRecord(MY_UUID);
@@ -129,8 +128,6 @@ public class MainActivity extends Activity {
   @Override
   public void onResume() {
     super.onResume();
- 
-    Log.d(TAG, "...onResume - try connect...");
    
     // Set up a pointer to the remote node using it's address.
     BluetoothDevice device = btAdapter.getRemoteDevice(address);
@@ -157,10 +154,9 @@ public class MainActivity extends Activity {
     btAdapter.cancelDiscovery();
    
     // Establish the connection.  This will block until it connects.
-    Log.d(TAG, "...Connecting...");
+   
     try {
       btSocket.connect();
-      Log.d(TAG, "....Connection ok...");
     } catch (IOException e) {
       try {
         btSocket.close();
@@ -169,8 +165,7 @@ public class MainActivity extends Activity {
       }
     }
      
-    // Create a data stream so we can talk to server.
-    Log.d(TAG, "...Create Socket...");
+    // Create a data stream so we can talk to server
    
     mConnectedThread = new ConnectedThread(btSocket);
     mConnectedThread.start();
@@ -180,7 +175,6 @@ public class MainActivity extends Activity {
   public void onPause() {
     super.onPause();
  
-    Log.d(TAG, "...In onPause()...");
   
     try     {
       btSocket.close();
@@ -196,7 +190,7 @@ public class MainActivity extends Activity {
       errorExit("Fatal Error", "Bluetooth not support");
     } else {
       if (btAdapter.isEnabled()) {
-        Log.d(TAG, "...Bluetooth ON...");
+    
       } else {
         //Prompt user to turn on Bluetooth
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -247,12 +241,12 @@ public class MainActivity extends Activity {
 	 
 	    /* Call this from the main activity to send data to the remote device */
 	    public void write(String message) {
-	    	Log.d(TAG, "...Data to send: " + message + "...");
+	   
 	    	byte[] msgBuffer = message.getBytes();
 	    	try {
 	            mmOutStream.write(msgBuffer);
 	        } catch (IOException e) {
-	            Log.d(TAG, "...Error data send: " + e.getMessage() + "...");     
+	          // do something here?   
 	          }
 	    }
 	}
