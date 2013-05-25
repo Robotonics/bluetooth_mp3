@@ -29,16 +29,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.EditText;
 import android.widget.*;
  
 public class MainActivity extends Activity {
    
-  Button Play, Pause, Mute;
+  Button Send;
   TextView txtArduino;
   Handler h;
-  EditText track;
+  EditText trackNumber;
+  String value;
+  public static int trackno;
    
-  final int RECIEVE_MESSAGE = 1;		// Status  for Handler
+  final int RECIEVE_MESSAGE = 1;// Status  for Handler
   private BluetoothAdapter btAdapter = null;
   private BluetoothSocket btSocket = null;
   private StringBuilder sb = new StringBuilder();
@@ -57,11 +60,14 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
  
     setContentView(R.layout.activity_main);
-    track= (EditText) findViewById(R.id.trackNumber);
-    Mute= (Button) findViewById(R.id.Mute);
-    Play= (Button) findViewById(R.id.Play);					
-    Pause = (Button) findViewById(R.id.Pause);				
-    txtArduino = (TextView) findViewById(R.id.txtArduino);		// for display the received data from the Arduino
+    trackNumber= (EditText) findViewById(R.id.trackNumber);
+    Send= (Button) findViewById(R.id.Send);				
+   			
+    txtArduino = (TextView) findViewById(R.id.txtArduino);
+	// for display the received data from the Arduino
+
+
+	
     
     h = new Handler() {
     	public void handleMessage(android.os.Message msg) {
@@ -75,8 +81,8 @@ public class MainActivity extends Activity {
             		String sbprint = sb.substring(0, endOfLineIndex);				// extract string
                     sb.delete(0, sb.length());										// and clear
                 	txtArduino.setText("Data from Arduino: " + sbprint); 	        // update TextView
-                	Pause.setEnabled(true);
-                	Play.setEnabled(true); 
+                
+                	Send.setEnabled(true); 
                 }
             
             	break;
@@ -86,31 +92,22 @@ public class MainActivity extends Activity {
      
     btAdapter = BluetoothAdapter.getDefaultAdapter();		// get Bluetooth adapter
     checkBTState();
- 
-    Play.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-    	Play.setEnabled(false);
-    	mConnectedThread.write("1");	// Send "1" via Bluetooth
-     Toast.makeText(getBaseContext(), "Playing Track 1", Toast.LENGTH_SHORT).show();
-      }
-    });
- 
-    Pause.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-    	Pause.setEnabled(false);  
-    	mConnectedThread.write("0");	// Send "0" via Bluetooth
-     Toast.makeText(getBaseContext(), "Playback Paused!", Toast.LENGTH_SHORT).show();
-      }
-    });
+	
     
-    Mute.setOnClickListener(new OnClickListener() {
+ 
+ 
+    
+    Send.setOnClickListener(new OnClickListener() {
       public void onClick(View v) {
-    	Mute.setEnabled(false);
-    	mConnectedThread.write("2");	// Send "2" via Bluetooth
-     Toast.makeText(getBaseContext(), "Sound Muted!", Toast.LENGTH_SHORT).show();
+    	Send.setEnabled(true);
+		value=trackNumber.getText().toString();// get string from EditText trackNumber 
+		
+    	mConnectedThread.write(value);	// Send value entered via Bluetooth
+		trackNumber.setText("");  // clear input box
+     Toast.makeText(getBaseContext(), "Track"+value, Toast.LENGTH_SHORT).show();
       }
     });
-    
+ 
   }
   
   private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
@@ -170,7 +167,10 @@ public class MainActivity extends Activity {
     mConnectedThread = new ConnectedThread(btSocket);
     mConnectedThread.start();
   }
- 
+ 	public void sendtrack(){
+
+
+	}
   @Override
   public void onPause() {
     super.onPause();
@@ -250,4 +250,6 @@ public class MainActivity extends Activity {
 	          }
 	    }
 	}
+	
+
 }
