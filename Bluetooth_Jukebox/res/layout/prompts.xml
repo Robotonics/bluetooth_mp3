@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+	
+	<TextView 
+		
+		android:id="@+id/promptTrack"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:hint="Enter Track Number: " 
+		android:textAppearance="?android:attr/textAppearanceLarge" />   
+	
+	<EditText 
+		
+		android:id="@+id/userInput" 
+		android:layout_width="match_parent" 
+		android:layout_height="wrap_content" >   
+		
+		<requestFocus />   
+			
+			</EditText>
+    
+</RelativeLayout>

@@ -14,23 +14,27 @@ import java.lang.reflect.Method;
 import java.util.UUID;
  
 import com.robotonics.btjuke.R;
- 
+import android.app.AlertDialog;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.LayoutInflater;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 import android.widget.*;
+import android.app.*;
  
 public class MainActivity extends Activity {
    
@@ -40,6 +44,8 @@ public class MainActivity extends Activity {
   EditText trackNumber;
   String value;
   public static int trackno;
+  final Context context = this; 
+  private Button button; 
    
   final int RECIEVE_MESSAGE = 1;// Status  for Handler
   private BluetoothAdapter btAdapter = null;
@@ -47,7 +53,8 @@ public class MainActivity extends Activity {
   private StringBuilder sb = new StringBuilder();
   
   private ConnectedThread mConnectedThread;
-   
+  
+  
   // SPP UUID service
   private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
  
@@ -60,8 +67,8 @@ public class MainActivity extends Activity {
     super.onCreate(savedInstanceState);
  
     setContentView(R.layout.activity_main);
-    trackNumber= (EditText) findViewById(R.id.trackNumber);
-    Send= (Button) findViewById(R.id.Send);				
+    trackNumber= (EditText) findViewById(R.id.userInput);
+    button= (Button) findViewById(R.id.Play);				
    			
     txtArduino = (TextView) findViewById(R.id.txtArduino);
 	// for display the received data from the Arduino
@@ -94,21 +101,50 @@ public class MainActivity extends Activity {
     checkBTState();
 	
     
+   
+	  button.setOnClickListener(new OnClickListener() {
+		  
+	  @Override public void onClick(View arg0) {   // get prompts.xml view
+	  
+	  LayoutInflater li = LayoutInflater.from(context); 
+	  
+	  View promptsView = li.inflate(R.layout.prompts, null);
+	  
+	  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder( context);   // set prompts.xml to alertdialog builder 
+	  
+	  alertDialogBuilder.setView(promptsView); 
+	  
+	  trackNumber = (EditText) promptsView .findViewById(R.id.userInput);   // set dialog message
+	  
+	  alertDialogBuilder .setCancelable(false) .setPositiveButton("Play", new DialogInterface.OnClickListener() { 
+	  
+	  public void onClick(DialogInterface dialog,int id) { // get user input and write to attached thread 
+	  
+	  value=trackNumber.getText().toString();
+	  mConnectedThread.write(value);
+	  // result.setText(userInput.getText()); 
+	
+	  } }) 
+	  
+	  .setNegativeButton("Cancel", new DialogInterface.OnClickListener() { 
+	  
+	  public void onClick(DialogInterface dialog,int id) { 
+	  
+	  dialog.cancel(); 
+	  
+	  } });   
+	  
+	  // create alert dialog 
+	  
+	  AlertDialog alertDialog = alertDialogBuilder.create();   // show it 
+	  
+	  alertDialog.show(); 
+	  
+	  } }); 
+	  
+	  } 
  
- 
-    
-    Send.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-    	Send.setEnabled(true);
-		value=trackNumber.getText().toString();// get string from EditText trackNumber 
-		
-    	mConnectedThread.write(value);	// Send value entered via Bluetooth
-		trackNumber.setText("");  // clear input box
-     Toast.makeText(getBaseContext(), "Track"+value, Toast.LENGTH_SHORT).show();
-      }
-    });
- 
-  }
+  
   
   private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
       if(Build.VERSION.SDK_INT >= 10){
@@ -121,6 +157,8 @@ public class MainActivity extends Activity {
       }
       return  device.createRfcommSocketToServiceRecord(MY_UUID);
   }
+  
+  
    
   @Override
   public void onResume() {
@@ -251,5 +289,7 @@ public class MainActivity extends Activity {
 	    }
 	}
 	
+	// add new subroutines here if needed
 
 }
+	

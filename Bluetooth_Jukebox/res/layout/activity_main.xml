@@ -7,14 +7,14 @@
    
 	
 	<Button
-        android:id="@+id/Send"
+        android:id="@+id/Play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
 		android:layout_marginTop="50dp"
 		android:layout_marginLeft="30dp"
         android:background="@drawable/menu_selector"
-        android:text="@string/Send" />
+        android:text="@string/Play" />
 
     <TextView
         android:id="@+id/txtArduino"
@@ -33,18 +33,7 @@
         android:alpha="0.5"
         android:src="@drawable/cxemnet_logo" />
 	
-	<EditText
-        android:id="@+id/trackNumber"
-        android:hint="@string/trackNumber"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-		android:maxLength="3"
-		android:singleLine="true"
-        android:inputType="number">
-		
-		<requestFocus/>
-	
-	</EditText>
+
 
 </RelativeLayout>
 
