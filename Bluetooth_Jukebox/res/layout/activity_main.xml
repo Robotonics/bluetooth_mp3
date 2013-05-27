@@ -12,10 +12,40 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
 		android:layout_marginTop="50dp"
-		android:layout_marginLeft="30dp"
+		android:layout_marginLeft="50dp"
         android:background="@drawable/menu_selector"
         android:text="@string/Play" />
-
+	
+	<Button
+        android:id="@+id/Pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+		android:layout_marginTop="50dp"
+		android:layout_marginRight="50dp"
+        android:background="@drawable/menu_selector"
+        android:text="@string/Pause" />
+	
+	<Button
+        android:id="@+id/Next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+		android:layout_marginTop="120dp"
+		android:layout_marginLeft="50dp"
+        android:background="@drawable/menu_selector"
+        android:text="@string/Next" />
+	
+	<Button
+        android:id="@+id/Prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+		android:layout_marginTop="120dp"
+		android:layout_marginRight="50dp"
+        android:background="@drawable/menu_selector"
+        android:text="@string/Prev" />
+	
     <TextView
         android:id="@+id/txtArduino"
         android:layout_width="fill_parent"
@@ -23,16 +53,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:text="" />
-    
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:alpha="0.5"
-        android:src="@drawable/cxemnet_logo" />
 	
+	<TextView
+        android:id="@+id/description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+		android:layout_marginBottom="50dp"
+        android:text="      Alison's JukeBox-Press Play to Enter track to play!" />
+	
+    
+   
 
 
 </RelativeLayout>

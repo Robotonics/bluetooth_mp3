@@ -121,8 +121,8 @@ public class MainActivity extends Activity {
 	  public void onClick(DialogInterface dialog,int id) { // get user input and write to attached thread 
 	  
 	  value=trackNumber.getText().toString();
+	  
 	  mConnectedThread.write(value);
-	  // result.setText(userInput.getText()); 
 	
 	  } }) 
 	  
@@ -136,9 +136,11 @@ public class MainActivity extends Activity {
 	  
 	  // create alert dialog 
 	  
-	  AlertDialog alertDialog = alertDialogBuilder.create();   // show it 
+	  AlertDialog alertDialog = alertDialogBuilder.create();   
 	  
-	  alertDialog.show(); 
+	  alertDialog.show(); // show dialog
+	  
+	  alertDialog.getWindow().setLayout(350,250); // change width and height of dialog
 	  
 	  } }); 
 	  
