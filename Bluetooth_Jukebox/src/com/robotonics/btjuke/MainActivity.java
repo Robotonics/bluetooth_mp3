@@ -38,12 +38,13 @@ import android.app.*;
  
 public class MainActivity extends Activity {
    
-  Button Send;
+
+  Button Next,Prev,Play,Pause;
   TextView txtArduino;
   Handler h;
   EditText trackNumber;
   String value;
-  public static int trackno;
+  public static int trackno,tracknew;
   final Context context = this; 
   private Button button; 
    
@@ -68,7 +69,9 @@ public class MainActivity extends Activity {
  
     setContentView(R.layout.activity_main);
     trackNumber= (EditText) findViewById(R.id.userInput);
-    button= (Button) findViewById(R.id.Play);				
+    button= (Button) findViewById(R.id.Play);
+	Next=(Button)findViewById(R.id.Next);
+    Prev=(Button)findViewById(R.id.Prev);
    			
     txtArduino = (TextView) findViewById(R.id.txtArduino);
 	// for display the received data from the Arduino
@@ -87,9 +90,9 @@ public class MainActivity extends Activity {
             	if (endOfLineIndex > 0) { 											// if end-of-line,
             		String sbprint = sb.substring(0, endOfLineIndex);				// extract string
                     sb.delete(0, sb.length());										// and clear
-                	txtArduino.setText("Data from Arduino: " + sbprint); 	        // update TextView
+                	txtArduino.setText("JukeBox: " + sbprint); 	        // update TextView
                 
-                	Send.setEnabled(true); 
+                //	Play.setEnabled(true); 
                 }
             
             	break;
@@ -134,6 +137,48 @@ public class MainActivity extends Activity {
 	  
 	  } });   
 	  
+		  Next = (Button) findViewById(R.id.Next);
+		  Next.setOnClickListener(new View.OnClickListener() {
+				  public void onClick(View v) {
+			
+		  // experimental 29/05/2013
+		  
+		 // value=trackNumber.getText().toString(); // get string from input
+		  trackno=Integer.parseInt(value);        // convert string to int
+		  tracknew=trackno;   // add 1 to get next track
+		  tracknew=tracknew+1;
+		  value=(Integer.toString(tracknew));      // convert back to string
+		  
+		  // end experimental
+		  
+		  mConnectedThread.write(value);          // write value to serial
+					  
+				  }
+			  });
+	  
+	  	  Prev = (Button) findViewById(R.id.Prev);
+		  Prev.setOnClickListener(new View.OnClickListener() {
+				  public void onClick(View v) {
+					  
+					  // Do something in response to button click
+					  
+					  //value=trackNumber.getText().toString(); // get string from input
+					  trackno=Integer.parseInt(value);        // convert string to int
+					  tracknew=trackno;   // add 1 to get next track
+					  tracknew=tracknew-1;
+					  value=(Integer.toString(tracknew));      // convert back to string
+					  mConnectedThread.write(value);          // write value to serial
+				  }
+			  });
+			  
+		  Pause = (Button) findViewById(R.id.Pause);
+		  Pause.setOnClickListener(new View.OnClickListener() {
+				  public void onClick(View v) {
+					  // Do something in response to button click
+
+				  }
+			  });
+			  
 	  // create alert dialog 
 	  
 	  AlertDialog alertDialog = alertDialogBuilder.create();   
